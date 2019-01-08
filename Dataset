@@ -1,0 +1,23 @@
+with open ('./new2/weatherAUS.csv', encoding='utf-8', newline='') as file:
+
+    head = file.readline().strip().split(",")
+    index_Date = head.index("Date")
+    index_Location = head.index("Location")
+    index_MinTemp = head.index("MinTemp")
+    index_MaxTemp = head.index("MaxTemp")
+    index_Rainfall = head.index("Rainfall")
+
+    dataset = {}
+
+    for line in file:
+        data = line.strip().split(",")
+        if data[index_Location] not in dataset:
+            dataset[data[index_Location]] = {}
+
+        if data[index_Date] not in dataset[data[index_Location]]:
+            dataset[data[index_Location]][data[index_Date]] = {"MinTemp": data[index_MinTemp],
+                                                               "MaxTemp": data[index_MaxTemp],
+                                                               "Rainfall": data[index_Rainfall]
+                                                               }
+
+    print(dataset)
